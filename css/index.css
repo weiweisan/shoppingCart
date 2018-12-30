@@ -1,0 +1,478 @@
+/* 
+
+    一句话：如果你要参照背景图片来定位
+
+    那么如果背景是水平居中，那么你的元素也应该left:50%或者right:50%，因为图片始终会保持在屏幕中间，那么你的元素也要保持在屏幕中间
+
+    那么如果背景是垂直居中，那么你的元素也应该top:50% 或者botton:50%，因为图片始终会保持在屏幕垂直中间，那么你的元素也要保持在屏幕垂直中间
+
+    如果图片水平方向是固定的，你也应该是固定的
+    如果图片垂直方向是固定的，你也应该是固定的
+*/
+
+
+/* 第一屏 */
+.section1{
+
+    background: url(../images/01/products.png) no-repeat center center,
+                url(../images/01/bg.png) no-repeat center bottom;
+}
+
+.section1 .sofa{
+    position: absolute;
+    /* 因为背景图片是垂直居中布局,沙发要跟着背景图片动,所以也要用百分比布局 */
+    left:50%;
+    /* 背景图片是下方对齐,所以用固定布局 */
+    margin-left: -160px;
+
+    bottom:320px;
+    /* 使用剧本写好的动画 */
+    animation: shake .7s infinite alternate;
+}
+
+.section1 .ball{
+
+    position: absolute;
+    left:50%;
+    margin-left: 130px;
+    bottom:480px;
+
+    animation: shake 1s infinite alternate;
+}
+
+/* 要让沙发和气球动起来,而且一直在动所以要用到animation */
+/* 写一个剧本 */
+@keyframes shake{
+
+    from{}
+    to{
+        transform: translateY(-80px);
+    }
+}
+
+
+/* 第二屏开始 */
+.section2{
+    background: url(../images/02/bg.png) no-repeat center bottom;
+}
+
+.section2 .search01{
+
+    position: absolute;
+    left:50%;
+    /* margin-left: -111px; */
+    margin-left: 30%;
+    bottom: 300px;
+
+    /* transform: translate(600px); */
+}
+
+.section2 .search02{
+
+    position: absolute;
+    left:50%;
+    margin-left: -111px;
+    bottom: 300px;
+    /* 先隐藏 动画的时候显示出来 */
+    display: none;
+}
+
+.section2 .sofas{
+
+    position: absolute;
+    right:50%;
+    /* 自身宽度的一半 */
+    margin-right: -220.5px;
+    bottom: 210px;
+    /* 先隐藏,动画的时候再把它的高度从显示出来 以右下角不变变化它的高度 */
+    width: 0;
+}
+
+
+/* 第三屏 */
+/* 背景图片 */
+.section3{
+
+    background: url(../images/03/bg.png) no-repeat center;
+}
+
+/* 沙发 */
+.section3 .sofa{
+    position: absolute;
+    /* 因为是center,所以都要用百分比布局 才能跟随背景图片 */
+    left:50%;
+    margin-left: -235px;
+    bottom: 50%;
+    margin-bottom: -65px;
+}
+/* 颜色选择框 */
+.section3 .color{
+
+    position: absolute;
+    left:50%;
+    margin-left: 40px;
+    bottom: 50%;
+    margin-bottom: -100px;
+
+    width: 296px;
+    height: 131px;
+    background: url(../images/03/color01.gif) no-repeat;
+}
+
+/* 购物车框 */
+.section3 .add{
+
+    position: absolute;
+    left:50%;
+    margin-left: 40px;
+    bottom: 50%;
+    margin-bottom: -150px;
+
+    width: 218px;
+    height: 58px;
+    background: url(../images/03/add01.gif) no-repeat;
+}
+/* 给颜色框添加动画,让它换一张背景图片 */
+.section3.animation .color{
+    /* 因为如果这里是img的话 animation不能改变src属性,但是可以改变background,所以使用了背景图片 */
+    transition: all 1s;
+    background:  url(../images/03/color02.gif) no-repeat;
+}
+
+/* 给购物框添加动画换一张背景图片 */
+.section3.animation .add{
+
+    transition: all 1s;
+    background: url(../images/03/add02.gif) no-repeat;
+}
+
+
+/* 第四屏 */
+/* 背景图片 */
+.section4{
+
+    background: url(../images/04/bg.png) no-repeat center bottom;
+}
+
+.section4 .cloud{
+
+    position: absolute;
+    top: 10px;
+    right:0;
+    /* 匀速持续50s动画 */
+    animation: cloud 50s infinite;
+}
+
+/* 给大盒子的子div设置它的子元素弹性布局 */
+.section4>div{
+    display: flex;
+    /* 改成y轴主轴 */
+    flex-direction: column;
+    /* 主轴居中 */
+    align-items: center;
+    /* 副轴也居中 */
+    justify-content: center;
+}
+/* 键盘和地址的大盒子 */
+.section4 .keyboard{
+
+    margin-top: 50px;
+    width: 283px;
+    height: 270px;
+    background: url(../images/04/keyboard.png);
+
+    position: relative;
+    /* 因为动画效果要隐藏,不能用display,所以使用透明度隐藏 */
+    opacity: 0;
+}
+/* 单独找到地址 */
+.section4 .address{
+
+    position: absolute;
+    left:50px;
+    top:60px;
+}
+
+/* 购物车和沙发 */
+.section4 .carBox{
+
+    position: absolute;
+    width: 407px;
+    height: 366px;
+    /* 水平居中布局要也要百分比布局 垂直固定 */
+    left:50%;
+    margin-left: -203.5px;
+
+    bottom:50px;
+    /* 因为背景图片是谁先写谁的优先级更高
+     ,并且默认位置是在left 和 top 如果不该top的沙发有部分因为高度不高会被隐藏 */
+    background: url(../images/04/car.png) no-repeat left bottom,
+                url(../images/04/sofa.png) no-repeat 120px -22px;
+}
+
+/* 云动画的剧本 */
+@keyframes cloud{
+
+    from{}
+
+    to{
+
+        transform: translateX(-2000px);
+    }
+}
+
+
+/* 第五屏开始 */
+/* 背景图片 */
+.section5{
+    background: url(../images/05/bg.png);
+
+    perspective: 800px;
+}
+
+/* 信用卡大盒子 */
+.section5 .cardBox{
+
+    width: 358px;
+    height: 221px;
+    position: absolute;
+    /* border: 1px solid #000; */
+
+    right:50%;
+    top:230px;
+}
+
+/* 给img盒子加上绝对定位 */
+.section5 .cardBox>img{
+    position: absolute;
+}
+
+/* 银行卡账单 */
+.section5 .bill{
+
+    left:150px;
+    top:0;
+}
+
+/* 未点击的鼠标盒子 */
+.section5 .mouse{
+
+    width: 205px;
+    height: 380px;
+    /* 默认是左上,所以背景图片要居中和向下 */
+    background: url(../images/05/mouse01.png) no-repeat center bottom;
+
+    position: absolute;
+    top: 0;
+    /* 因为背景图片是水平居中,所以百分比设置 */
+    left:70%;
+}
+
+/* 手 */
+/* 把手移动到鼠标的下面 */
+.section5 .hand{
+
+    position: absolute;
+    left:68%;
+    bottom: -40px;
+}
+
+/* 把文字定位到中间,并且要透明 */
+.section5 .words{
+
+    position: absolute;
+    left:50%;
+    margin-left: -270.5px;
+
+    top:30px;
+    /* display: none; */
+    opacity: 0;
+}
+
+/* 让手移到鼠标下面 */
+.section5.animation .hand{
+
+    transition: all 1s;
+    bottom: 0;
+}
+
+/* 把点击后的鼠标背景图片加上 */
+.section5.animation .mouse{
+    /* 动画时间要延迟 */
+    transition: all 1s 1s;
+    background: url(../images/05/mouse02.png) no-repeat center bottom ;
+}
+
+/* 把银行卡账单向上 */
+.section5.animation .bill{
+
+    transition: all 1s 2s;
+    top:-130px;
+}
+
+/* 把文字从阴影中显示出来,并且旋转 方大1.2 */
+.section5.animation .words{
+
+    transition: all 1s 3s;
+    opacity: 1;
+    transform: rotateY(360deg) scale(1.2);
+}
+
+
+/* 第六屏开始 */
+
+/* 街道背景图片 */
+.section6 .street{
+    width: 100%;
+    height: 100%;
+    /* 防止背景图片不够长 所以x轴平铺 */
+    background: url(../images/06/bg.png) repeat-x -300px bottom;
+}
+
+/* 车盒子 */
+.section6 .carBox{
+
+    width: 221px;
+    height: 122px;
+    /* border: 1px solid #000; */
+
+    position: absolute;
+    bottom: 82px;
+    left: 400px;
+}
+
+/* 装沙发的盒子 */
+.section6 .box{
+
+    width: 123px;
+    height: 85px;
+    position: absolute;
+    top:-400px;
+}
+
+/* 给img定位 */
+.section6 .box>img{
+
+    position: absolute;
+}
+
+/* 沙发 */
+.section6 .sofa{
+    width: 80px;
+    left:20px;
+    top:-10px;
+}
+
+/* 快递员 */
+.section6 .man{
+
+    position: absolute;
+    right:0;
+    bottom: 20px;
+    height:0px;
+}
+
+/* 车 */
+.section6 .car{
+    position: absolute;
+}
+
+/* 门 */
+.section6 .door{
+
+    position: absolute;
+    bottom: 116px;
+    left: 809px;
+    display: none;
+}
+
+/* 女孩 */
+.section6 .girl{
+
+    position: absolute;
+    bottom: 116px;
+    left: 860px;
+    height:120px;
+    display: none;
+}
+
+/* 第七屏 */
+.section7{
+    /* 背景图片 */
+    background: url(../images/07/bg.png) no-repeat center bottom;
+}
+
+/* 五星 */
+.section7 .star{
+
+    /* width: 105px; */
+    height: 17px;
+    background: url(../images/07/stars3.png) no-repeat;
+
+    position: absolute;
+    left: 50%;
+    margin-left: -300px;
+    bottom: 443px;
+    width: 0;
+}
+
+/* 好评文字 */
+.section7 .good{
+
+    position: absolute;
+    left: 50%;
+    margin-left: -280px;
+    bottom: 383px;
+    opacity: 0;
+}
+
+
+/* 把五星好评阶段动画出来 */
+.section7.animation .star{
+    transition: all 1s steps(5);
+    width: 105px;
+}
+
+/* 好评文字动画 并延长一秒 */
+.section7.animation .good{
+    transition: all 1s 1s;
+    opacity: 1;
+}
+
+
+/* 第八屏 */
+.section8{
+    background: url(../images/08/bg.png);
+}
+
+.section8 .begin{
+
+    width: 389px;
+    height: 160px;
+    background: url(../images/08/begin.png);
+    position: absolute;
+    left:50%;
+    margin-left: -194.5px;
+    top:20px;
+}
+
+.section8 .begin:hover{
+
+    background: url(../images/08/begin.gif);
+}
+
+.section8 .again{
+
+    position: absolute;
+
+    right:50px;
+    bottom: 80px;
+}
+
+.section8 .hand{
+
+    /* 告诉这个手，你不接收任何跟鼠标有关的事件 */
+    pointer-events: none;
+
+    position: absolute;
+}
